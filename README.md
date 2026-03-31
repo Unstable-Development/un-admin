@@ -44,7 +44,7 @@ Dynamic theme switching + custom server name display!
 - Give Money (Cash/Bank)
 - Freeze / Kill / Kick / Ban
 - Spectate mode
-![image](https://github.com/user-attachments/assets/2357802a-8b74-4c2d-834a-1de3e6695e56)
+
 
 ### 🎭 Troll Actions (Fun Commands)
 - 👋 **Slap** - Ragdoll + launch
@@ -56,24 +56,21 @@ Dynamic theme switching + custom server name display!
 - 👥 **Clone** - NPC duplicate
 - 💣 **Explode** - Boom!
 - 🌊 **Ocean** / ☁️ **Sky** - Teleports
-
+![image](https://github.com/user-attachments/assets/2357802a-8b74-4c2d-834a-1de3e6695e56)
 ### 🛒 Admin Shop (Items)
 - Browse and give any item from your inventory system
-- Search and filter by category
 - Item images displayed
-- Give to self or any player
 ![image](https://github.com/user-attachments/assets/0e363d4e-6620-416d-be07-a6040b69cd72)
 
 ### 🚗 Vehicle Management
 - Spawn any vehicle by model name
 - Vehicle categories (Super, Sports, Emergency, etc.)
-- Fix/delete vehicles
 - Save vehicles to database (owned)
 - Give vehicles to other players
 ![image](https://github.com/user-attachments/assets/66951a37-e412-4c31-a9ed-9293046c18f7)
 
 ### 🌦️ Server Controls
-- Change weather (15+ types)
+- Change weather 
 - Time control with slider
 - Freeze/unfreeze time
 - Server announcements
