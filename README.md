@@ -1,3 +1,5 @@
+⚠️ This is my first public release. Expect bugs.
+Feel free to report issues or suggest improvements.
 # 🛡️ un-admin
 
 ## ✨ Key Features
