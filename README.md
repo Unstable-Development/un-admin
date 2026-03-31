@@ -17,6 +17,12 @@ Choose from 6 pre-built color themes in `config.lua`:
 - **Red** - `#ef4444`
 - **Orange** - `#f97316`
 - **Yellow** - `#eab308`
+<img width="1394" height="902" alt="Screenshot 2026-03-29 140847" src="https://github.com/user-attachments/assets/24dd1017-de6b-465c-90d9-2ec5c30305cd" />
+<img width="1388" height="892" alt="Screenshot 2026-03-29 145926" src="https://github.com/user-attachments/assets/79cc3878-1b3a-409e-807e-eb2277554995" />
+<img width="1398" height="896" alt="Screenshot 2026-03-29 151234" src="https://github.com/user-attachments/assets/73feb2ef-075a-41cd-a286-19d16336e22d" />
+<img width="1386" height="899" alt="Screenshot 2026-03-29 151324" src="https://github.com/user-attachments/assets/6d83f98f-0b6e-4cf7-8693-1cc3012eb61a" />
+<img width="1391" height="897" alt="Screenshot 2026-03-29 151353" src="https://github.com/user-attachments/assets/c28707e1-8e68-42a2-8bf3-24befa15a33e" />
+<img width="1397" height="901" alt="Screenshot 2026-03-29 152313" src="https://github.com/user-attachments/assets/e493aa1e-f7d0-4311-a077-5cc22bd2db03" />
 
 Dynamic theme switching + custom server name display!
 
@@ -27,6 +33,7 @@ Dynamic theme switching + custom server name display!
 - 60-second cooldown system
 - Status tracking (Open/Resolved)
 - Real-time badge counter with pulse animation
+<img width="1393" height="896" alt="Screenshot 2026-03-29 181239" src="https://github.com/user-attachments/assets/7f354b7c-17d9-42e5-be4b-f5a97b5feb06" />
 
 ### 👥 Player Management
 - View all online players with job, money, and ping
@@ -37,6 +44,7 @@ Dynamic theme switching + custom server name display!
 - Give Money (Cash/Bank)
 - Freeze / Kill / Kick / Ban
 - Spectate mode
+![image](https://github.com/user-attachments/assets/2357802a-8b74-4c2d-834a-1de3e6695e56)
 
 ### 🎭 Troll Actions (Fun Commands)
 - 👋 **Slap** - Ragdoll + launch
@@ -54,7 +62,7 @@ Dynamic theme switching + custom server name display!
 - Search and filter by category
 - Item images displayed
 - Give to self or any player
-- Custom quantities
+![image](https://github.com/user-attachments/assets/0e363d4e-6620-416d-be07-a6040b69cd72)
 
 ### 🚗 Vehicle Management
 - Spawn any vehicle by model name
@@ -62,6 +70,7 @@ Dynamic theme switching + custom server name display!
 - Fix/delete vehicles
 - Save vehicles to database (owned)
 - Give vehicles to other players
+![image](https://github.com/user-attachments/assets/66951a37-e412-4c31-a9ed-9293046c18f7)
 
 ### 🌦️ Server Controls
 - Change weather (15+ types)
@@ -75,6 +84,7 @@ Dynamic theme switching + custom server name display!
   - Cards show resource state (started/stopped)
   - Auto-refresh after actions
   - Action buttons disable intelligently based on resource state
+![image](https://github.com/user-attachments/assets/5b8ff709-429f-4c32-84e8-61a386e84770)
 
 ### 🛠️ Developer Tools (God Only)
 - **Noclip** - WASD + Q/E + Shift
@@ -83,6 +93,7 @@ Dynamic theme switching + custom server name display!
 - **Coordinates Display** - Copy in multiple formats (vector2, vector3, vector4, table, JSON)
 - **Delete Laser** - Point and delete
 - **Entity Info** - Detailed entity viewer
+![image](https://github.com/user-attachments/assets/8dc3ec6d-b3b6-4f00-b160-efb40cc61f8c)
 
 ### 📊 Dashboard
 - Live player count
