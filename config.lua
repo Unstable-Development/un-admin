@@ -5,7 +5,7 @@ Config = {}
 -- ==============================================
 
 -- Server Name (appears on top of admin panel)
-Config.ServerName = 'unstable'
+Config.ServerName = ''
 
 -- UI Theme Color
 -- Options: 'purple', 'blue', 'green', 'red', 'orange', 'yellow'
