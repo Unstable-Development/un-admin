@@ -75,7 +75,7 @@ Config.Permissions = {
 }
 
 -- Discord Webhook for logging admin actions
-Config.Webhook = 'https://discordapp.com/api/webhooks/1438894587023196340/CKx8B2Fguq0fjp5OPsMV0Tf_mSe0ng49LsZKe-HpiRsKhXKS6s5zwzfKXBOOPw4M6KLz' -- Add your Discord webhook URL here
+Config.Webhook = '' -- Add your Discord webhook URL here
 
 -- ==============================================
 -- REPORT SYSTEM
@@ -85,7 +85,7 @@ Config.Webhook = 'https://discordapp.com/api/webhooks/1438894587023196340/CKx8B2
 Config.ReportSystem = {
     enabled = true,
     command = 'report', -- Command players use to open report UI
-    webhook = 'https://discordapp.com/api/webhooks/1437290637681492103/tWq5JiZCKGzZUA18ZmDmtFhxGRMAhpAm3ybVGAqWQqYZ3D3HJMdumQBmEG0VR5TVwZDe', -- Discord webhook for reports (leave empty to disable)
+    webhook = '', -- Discord webhook for reports (leave empty to disable)
     embedColor = 15158332, -- Red color for Discord embeds (decimal)
     minReportLength = 10, -- Minimum characters for a report
     maxReportLength = 500, -- Maximum characters for a report
