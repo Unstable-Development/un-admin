@@ -55,10 +55,10 @@ Dynamic theme switching + custom server name display!
 - 🗃️ **Cage** - Trap in cage
 - 👥 **Clone** - NPC duplicate
 - 💣 **Explode** - Boom!
-- 🌊 **Ocean** / ☁️ **Sky** - Teleports
+- 🌊 **Ocean** / ☁️ sends player to the ocean
 ![image](https://github.com/user-attachments/assets/2357802a-8b74-4c2d-834a-1de3e6695e56)
 ### 🛒 Admin Shop (Items)
-- Browse and give any item from your inventory system
+- Browse and give any item from your inventory system, automatically populated from qb-core/shared/items.lua folder.
 - Item images displayed
 ![image](https://github.com/user-attachments/assets/0e363d4e-6620-416d-be07-a6040b69cd72)
 
@@ -338,24 +338,25 @@ un-admin/
 ## 📝 Changelog
 
 ### Latest Updates
+- ✅ Added new feature called "Airwalk", it is like noclip but different
 - ✅ Multi-inventory auto-detection system
 - ✅ Multi-fuel auto-detection system
+- ✅ Multi-vehicle keys auto-detection
 - ✅ 6 customizable UI theme options
 - ✅ Dynamic server name configuration
 - ✅ Comprehensive report system with Discord webhooks
 - ✅ Real-time report badge counter
 - ✅ Enhanced job selection modal
-- ✅ Full rebrand from "Prelude Admin" to "un-admin"
 
 ---
 
 ## 💡 Credits
 
-Originally created for internal use, now refined for production environments.
+Please note that I am by no means a professional! I use visual studio code with copilot and claude sonnet 4.6 to make all my scripts. The only credit I can take is for the time I have spent refining this script, that is it. This is my first release and I’m continuing to improve it. I was so tired of buying shitty admin menus that were overpriced and did not have exactly what I wanted. I originally was going to sell this on tebex, but I felt rather guilty as I am having AI do most of the work despite having about 80 hours into the project myself. Anyway, hope you enjoy it and find it useful! 
 
 ---
 
 **Command to Open:** `/pa`  
 **Permissions:** `qbcore.god` | `qbcore.admin` | `qbcore.mod`  
 
-**Enjoy your production-ready admin menu!** 🚀
+**Enjoy your admin menu!** 🚀
