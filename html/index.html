@@ -1,0 +1,328 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>un-admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="admin-container" id="adminMenu">
+        <div class="admin-header">
+            <div class="header-left">
+                <i class="fas fa-shield-alt"></i>
+                <h1 id="serverName">UN-ADMIN</h1>
+            </div>
+            <div class="header-right">
+                <div class="user-info">
+                    <i class="fas fa-user-circle"></i>
+                    <span id="adminName">Administrator</span>
+                    <span class="permission-badge" id="permissionBadge">GOD</span>
+                </div>
+                <button class="close-btn" onclick="closeMenu()"><i class="fas fa-times"></i></button>
+            </div>
+        </div>
+        <div class="nav-tabs">
+            <div class="tab active" data-tab="dashboard"><i class="fas fa-home"></i><span>Dashboard</span></div>
+            <div class="tab" data-tab="players"><i class="fas fa-users"></i><span>Players</span></div>
+            <div class="tab" data-tab="items"><i class="fas fa-shopping-cart"></i><span>Admin Shop</span></div>
+            <div class="tab" data-tab="vehicles"><i class="fas fa-car"></i><span>Vehicles</span></div>
+            <div class="tab" data-tab="server"><i class="fas fa-server"></i><span>Server</span></div>
+            <div class="tab" data-tab="reports"><i class="fas fa-flag"></i><span>Reports</span><span class="report-badge" id="reportBadge" style="display:none;">0</span></div>
+            <div class="tab" data-tab="developer"><i class="fas fa-code"></i><span>Developer</span></div>
+            <div class="tab" data-tab="logs"><i class="fas fa-clipboard-list"></i><span>Logs</span></div>
+        </div>
+        <div class="tab-contents">
+            <div class="tab-content active" id="dashboard">
+                <div class="dashboard-stats">
+                    <div class="stat-card"><div class="stat-icon"><i class="fas fa-users"></i></div><div class="stat-info"><h3 id="totalPlayers">0</h3><p>Players Online</p></div></div>
+                    <div class="stat-card"><div class="stat-icon"><i class="fas fa-car"></i></div><div class="stat-info"><h3 id="totalVehicles">0</h3><p>Vehicles Spawned</p></div></div>
+                    <div class="stat-card"><div class="stat-icon"><i class="fas fa-chart-line"></i></div><div class="stat-info"><h3 id="serverUptime">0h 0m</h3><p>Server Uptime</p></div></div>
+                    <div class="stat-card"><div class="stat-icon"><i class="fas fa-history"></i></div><div class="stat-info"><h3 id="totalBans">0</h3><p>Total Bans</p></div></div>
+                </div>
+                <div class="dashboard-quick-actions">
+                    <h2>Quick Actions</h2>
+                    <div class="quick-actions-grid">
+                        <button class="quick-action-btn" onclick="toggleNoclipDashboard()"><i class="fas fa-ghost"></i><span>Toggle Noclip</span></button>
+                        <button class="quick-action-btn" onclick="toggleAirwalkDashboard()"><i class="fas fa-plane"></i><span>Toggle Airwalk</span></button>
+                        <button class="quick-action-btn" onclick="freezeAllPlayers()"><i class="fas fa-snowflake"></i><span>Freeze All Players</span></button>
+                        <button class="quick-action-btn" onclick="reviveAllPlayers()"><i class="fas fa-heart"></i><span>Revive All Players</span></button>
+                        <button class="quick-action-btn" onclick="deleteAllVehicles()"><i class="fas fa-trash"></i><span>Delete All Vehicles</span></button>
+                        <button class="quick-action-btn" onclick="clearAreaPeds()"><i class="fas fa-user-slash"></i><span>Clear Area Peds</span></button>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content" id="players">
+                <div class="search-bar"><i class="fas fa-search"></i><input type="text" id="playerSearch" placeholder="Search players by name or ID..."></div>
+                <div class="players-grid" id="playersGrid"></div>
+            </div>
+            <div class="tab-content" id="items">
+                <div class="search-bar"><i class="fas fa-search"></i><input type="text" id="itemSearch" placeholder="Search items..."></div>
+                <div class="items-grid" id="itemsGrid"></div>
+            </div>
+            <div class="tab-content" id="vehicles">
+                <div class="search-bar"><i class="fas fa-search"></i><input type="text" id="vehicleSearch" placeholder="Search vehicles by name or model..."></div>
+                <div class="vehicle-categories" id="vehicleCategories"></div>
+                <div class="vehicles-grid" id="vehiclesGrid"></div>
+            </div>
+            <div class="tab-content" id="server">
+                <div class="server-controls">
+                    <div class="control-section"><h3><i class="fas fa-cloud-sun"></i> Weather Control</h3><div class="weather-grid" id="weatherGrid"></div></div>
+                    <div class="control-section"><h3><i class="fas fa-clock"></i> Time Control</h3><div class="time-controls"><input type="range" id="timeSlider" min="0" max="23" value="12"><div class="time-display"><span id="timeDisplay">12:00</span><button class="btn-secondary" onclick="freezeTime()"><i class="fas fa-pause"></i> Freeze Time</button></div></div></div>
+                    <div class="control-section"><h3><i class="fas fa-bullhorn"></i> Server Announcement</h3><div class="announcement-box"><textarea id="announcementText" placeholder="Enter your announcement message..."></textarea><button class="btn-primary" onclick="sendAnnouncement()"><i class="fas fa-paper-plane"></i> Send Announcement</button></div></div>
+                    <div class="control-section full-width"><h3><i class="fas fa-cogs"></i> Resource Management</h3><div class="resource-management"><div class="resource-search"><input type="text" id="resourceSearch" placeholder="Search resources..." onkeyup="filterResources()"><button class="btn-primary" onclick="refreshResourcesList()"><i class="fas fa-sync"></i> Refresh</button></div><div class="resources-list" id="resourcesList"><div class="loading-state"><i class="fas fa-spinner fa-spin"></i><p>Loading resources...</p></div></div></div></div>
+                </div>
+            </div>
+            <div class="tab-content" id="developer">
+                <div class="dev-tools">
+                    <div class="tool-section"><h3><i class="fas fa-tools"></i> Developer Tools</h3><div class="tools-grid"><button class="tool-btn" onclick="toggleNoclip()"><i class="fas fa-ghost"></i><span>Noclip</span></button><button class="tool-btn" onclick="toggleAirwalk()"><i class="fas fa-plane"></i><span>Airwalk</span></button><button class="tool-btn" onclick="toggleGodmode()"><i class="fas fa-shield-alt"></i><span>God Mode</span></button><button class="tool-btn" onclick="toggleInvisible()"><i class="fas fa-eye-slash"></i><span>Invisible</span></button><button class="tool-btn" onclick="toggleCoords()"><i class="fas fa-crosshairs"></i><span>Show Coords</span></button><button class="tool-btn" onclick="toggleDeleteLaser()"><i class="fas fa-trash-alt"></i><span>Delete Laser</span></button><button class="tool-btn" onclick="toggleEntityInfo()"><i class="fas fa-info-circle"></i><span>Entity Info</span></button></div></div>
+                    <div class="tool-section"><h3><i class="fas fa-map-marker-alt"></i> Current Coordinates</h3><div class="coords-display"><div class="coord-item"><label>X:</label><input type="text" id="coordX" readonly></div><div class="coord-item"><label>Y:</label><input type="text" id="coordY" readonly></div><div class="coord-item"><label>Z:</label><input type="text" id="coordZ" readonly></div><div class="coord-item"><label>H:</label><input type="text" id="coordH" readonly></div></div><div class="copy-format-buttons"><button class="btn-small" onclick="copyVector2()"><i class="fas fa-copy"></i> vector2</button><button class="btn-small" onclick="copyVector3()"><i class="fas fa-copy"></i> vector3</button><button class="btn-small" onclick="copyVector4()"><i class="fas fa-copy"></i> vector4</button><button class="btn-small" onclick="copyTable()"><i class="fas fa-copy"></i> Table</button><button class="btn-small" onclick="copyJson()"><i class="fas fa-copy"></i> JSON</button></div></div>
+                    <div class="tool-section"><h3><i class="fas fa-bookmark"></i> Save Location</h3><div class="save-location-box"><input type="text" id="locationName" placeholder="Location name"><button class="btn-primary" onclick="saveLocation()"><i class="fas fa-save"></i> Save Current Location</button></div></div>
+                    <div class="tool-section"><h3><i class="fas fa-terminal"></i> Teleport to Coordinates</h3><div class="tp-coords"><input type="number" id="tpX" placeholder="X" step="0.1"><input type="number" id="tpY" placeholder="Y" step="0.1"><input type="number" id="tpZ" placeholder="Z" step="0.1"><button class="btn-primary" onclick="teleportToCoords()"><i class="fas fa-location-arrow"></i> Teleport</button></div></div>
+                </div>
+            </div>
+            <div class="tab-content" id="logs">
+                <div class="logs-container"><h3><i class="fas fa-history"></i> Admin Action Logs</h3><div class="logs-list" id="logsList"></div></div>
+            </div>
+            <div class="tab-content" id="reports">
+                <div class="reports-container">
+                    <div class="reports-header">
+                        <h3><i class="fas fa-flag"></i> Player Reports</h3>
+                        <div class="reports-filter">
+                            <button class="filter-btn active" data-filter="all" onclick="filterReports('all')">All</button>
+                            <button class="filter-btn" data-filter="open" onclick="filterReports('open')">Open</button>
+                            <button class="filter-btn" data-filter="resolved" onclick="filterReports('resolved')">Resolved</button>
+                        </div>
+                    </div>
+                    <div class="reports-list" id="reportsList">
+                        <div class="empty-state">
+                            <i class="fas fa-inbox fa-3x"></i>
+                            <p>No reports found</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="playerModal">
+        <div class="modal-content">
+            <div class="modal-header"><h2 id="modalPlayerName">Player Actions</h2><button class="close-btn" onclick="closePlayerModal()"><i class="fas fa-times"></i></button></div>
+            <div class="modal-body"><div class="action-buttons"></div></div>
+        </div>
+    </div>
+    <div class="modal" id="itemModal">
+        <div class="modal-content">
+            <div class="modal-header"><h2 id="modalItemName">Give Item</h2><button class="close-btn" onclick="closeItemModal()"><i class="fas fa-times"></i></button></div>
+            <div class="modal-body"><div class="item-give-options"><div class="form-group"><label>Quantity:</label><input type="number" id="itemQuantity" value="1" min="1"></div><div class="form-group"><label>Give to:</label><select id="giveToPlayer"><option value="self">Myself</option></select></div><button class="btn-primary" onclick="giveItem()"><i class="fas fa-gift"></i> Give Item</button></div></div>
+        </div>
+    </div>
+    <div class="modal" id="vehicleModal">
+        <div class="modal-content">
+            <div class="modal-header"><h2 id="modalVehicleName">Spawn Vehicle</h2><button class="close-btn" onclick="closeVehicleModal()"><i class="fas fa-times"></i></button></div>
+            <div class="modal-body">
+                <div class="vehicle-spawn-options">
+                    <div class="vehicle-preview">
+                        <i class="fas fa-car fa-4x"></i>
+                        <h3 id="vehicleModalBrand"></h3>
+                        <p id="vehicleModalModel"></p>
+                    </div>
+                    <div class="form-group">
+                        <label>Give to:</label>
+                        <select id="spawnTargetPlayer">
+                            <option value="self">Myself</option>
+                            <option value="other">Another Player</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="targetPlayerIdGroup" style="display: none;">
+                        <label>Player Server ID:</label>
+                        <input type="number" id="targetPlayerId" placeholder="Enter player ID" min="1">
+                    </div>
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="spawnOwned">
+                            <span>Save to database (owned vehicle)</span>
+                        </label>
+                    </div>
+                    <div class="spawn-buttons">
+                        <button class="btn-primary" onclick="spawnVehicle()"><i class="fas fa-car"></i> Spawn Vehicle</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="jobModal">
+        <div class="modal-content">
+            <div class="modal-header"><h2 id="modalJobName">Set Player Job</h2><button class="close-btn" onclick="closeJobModal()"><i class="fas fa-times"></i></button></div>
+            <div class="modal-body">
+                <div class="job-selection-options">
+                    <div class="form-group">
+                        <label><i class="fas fa-briefcase"></i> Select Job:</label>
+                        <select id="jobSelect" onchange="updateGradeDropdown()">
+                            <option value="">-- Choose a job --</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-star"></i> Select Grade:</label>
+                        <select id="gradeSelect" disabled>
+                            <option value="">-- Select a job first --</option>
+                        </select>
+                    </div>
+                    <div class="job-info" id="jobInfo" style="display: none;">
+                        <p><strong>Job Type:</strong> <span id="jobType"></span></p>
+                        <p><strong>Payment:</strong> $<span id="jobPayment"></span></p>
+                    </div>
+                    <div class="spawn-buttons">
+                        <button class="btn-primary" onclick="submitJobChange()" id="submitJobBtn" disabled>
+                            <i class="fas fa-check"></i> Set Job
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="giveMoneyModal">
+        <div class="modal-content">
+            <div class="modal-header"><h2><i class="fas fa-dollar-sign"></i> Give Money</h2><button class="close-btn" onclick="closeGiveMoneyModal()"><i class="fas fa-times"></i></button></div>
+            <div class="modal-body">
+                <div class="item-give-options">
+                    <div class="form-group">
+                        <label><i class="fas fa-id-card"></i> Player Server ID:</label>
+                        <input type="number" id="giveMoneyPlayerId" min="1" placeholder="Enter target player ID">
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-coins"></i> Amount:</label>
+                        <input type="number" id="giveMoneyAmount" min="1" step="1" placeholder="Enter amount">
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-wallet"></i> Account Type:</label>
+                        <select id="giveMoneyType">
+                            <option value="cash">Cash</option>
+                            <option value="bank">Bank</option>
+                        </select>
+                    </div>
+                    <div class="spawn-buttons">
+                        <button class="btn-primary" onclick="submitGiveMoney()"><i class="fas fa-check"></i> Give Money</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="reportModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-flag"></i> Submit Report</h2>
+                <button class="close-btn" onclick="closeReportModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="report-submit-form">
+                    <div class="form-group">
+                        <label>Describe the issue or player you want to report:</label>
+                        <textarea id="reportMessage" placeholder="Please provide as much detail as possible..." maxlength="500" rows="6"></textarea>
+                        <div class="char-counter">
+                            <span id="reportCharCount">0</span> / 500 characters (minimum 10)
+                        </div>
+                    </div>
+                    <div class="report-notice">
+                        <i class="fas fa-info-circle"></i>
+                        Your report will be sent to all online staff members. Please be patient while waiting for assistance.
+                    </div>
+                    <div class="modal-buttons">
+                        <button class="btn-secondary" onclick="closeReportModal()">
+                            <i class="fas fa-times"></i> Cancel
+                        </button>
+                        <button class="btn-primary" onclick="submitReport()">
+                            <i class="fas fa-paper-plane"></i> Submit Report
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="reportViewModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-file-alt"></i> Report Details</h2>
+                <button class="close-btn" onclick="closeReportViewModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="report-details">
+                    <div class="detail-row">
+                        <span class="detail-label">Report ID:</span>
+                        <span class="detail-value" id="viewReportId"></span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Player:</span>
+                        <span class="detail-value" id="viewReportPlayer"></span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Status:</span>
+                        <span class="detail-value" id="viewReportStatus"></span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Submitted:</span>
+                        <span class="detail-value" id="viewReportTime"></span>
+                    </div>
+                    <div class="detail-row full-width">
+                        <span class="detail-label">Message:</span>
+                        <div class="report-message-content" id="viewReportMessage"></div>
+                    </div>
+                    <div class="detail-row" id="viewResolvedByRow" style="display: none;">
+                        <span class="detail-label">Resolved By:</span>
+                        <span class="detail-value" id="viewResolvedBy"></span>
+                    </div>
+                </div>
+                <div class="modal-buttons">
+                    <button class="btn-success" onclick="resolveReportById()" id="resolveReportBtn">
+                        <i class="fas fa-check"></i> Resolve Report
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Entity Info Overlay (for delete laser / entity inspector) -->
+    <div id="entityInfoOverlay" style="display: none;">
+        <div class="entity-info-box">
+            <div class="entity-info-header">
+                <i class="fas fa-crosshairs"></i> Entity Info
+                <button class="entity-copy-btn" onclick="copyEntityInfo()" title="Copy to clipboard (or press C)">
+                    <i class="fas fa-copy"></i>
+                    <span class="copy-key">C</span>
+                </button>
+            </div>
+            <div class="entity-info-content">
+                <div class="entity-info-row">
+                    <span class="entity-label">Type:</span>
+                    <span class="entity-value" id="entityType">-</span>
+                </div>
+                <div class="entity-info-row">
+                    <span class="entity-label">Model:</span>
+                    <span class="entity-value" id="entityModel">-</span>
+                </div>
+                <div class="entity-info-row">
+                    <span class="entity-label">Hash:</span>
+                    <span class="entity-value" id="entityHash">-</span>
+                </div>
+                <div class="entity-info-row">
+                    <span class="entity-label">Coords:</span>
+                    <span class="entity-value entity-coords" id="entityCoords">-</span>
+                </div>
+                <div class="entity-info-row">
+                    <span class="entity-label">Heading:</span>
+                    <span class="entity-value" id="entityHeading">-</span>
+                </div>
+                <div class="entity-info-row">
+                    <span class="entity-label">Network:</span>
+                    <span class="entity-value" id="entityNetwork">-</span>
+                </div>
+            </div>
+            <div class="entity-info-footer">
+                <span class="entity-hint"><span class="hint-key">E</span> Delete &nbsp;|&nbsp; <span class="hint-key">C</span> Copy</span>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
