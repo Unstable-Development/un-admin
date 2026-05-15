@@ -1,5 +1,5 @@
 // Set to true to enable F8 console debug logging
-const DEBUG = true;
+const DEBUG = false;
 
 // Ensure GetParentResourceName exists (FiveM provides this natively)
 if (typeof GetParentResourceName === 'undefined') {
@@ -507,47 +507,57 @@ function closePlayerModal() {
     }
 }
 
-// Update items list
+// Update items list (called when server sends full item data)
 function updateItemsList(items) {
     itemsList = items;
+    const searchEl = document.getElementById('itemSearch');
+    const currentQuery = searchEl ? searchEl.value : '';
+    renderItemsGrid(currentQuery ? itemsList.filter(item =>
+        item.label.toLowerCase().includes(currentQuery.toLowerCase()) ||
+        item.name.toLowerCase().includes(currentQuery.toLowerCase())
+    ) : itemsList);
+}
+
+// Render items grid without overwriting the master itemsList
+function renderItemsGrid(items) {
     const grid = document.getElementById('itemsGrid');
     if (!grid) return;
-    
+
     grid.innerHTML = '';
-    
+
     if (!items || items.length === 0) {
-        grid.innerHTML = '<div style="color: #999; text-align: center; padding: 40px;">Loading items...</div>';
+        grid.innerHTML = '<div style="color: #999; text-align: center; padding: 40px;">No items found.</div>';
         return;
     }
-    
+
     items.forEach(item => {
         const card = document.createElement('div');
         card.className = 'item-card';
         card.onclick = () => openItemModal(item);
-        
+
         // Use dynamic image path from detected inventory system
         const imagePath = inventoryConfig.imagePath.replace('%s', item.image);
-        
+
         card.innerHTML = `
             <img src="${imagePath}" class="item-image" onerror="this.src='https://via.placeholder.com/120x120/b604da/ffffff?text=${item.label}'">
             <div class="item-name">${item.label}</div>
             <div class="item-weight">${item.weight}g</div>
             <div class="item-price">FREE</div>
         `;
-        
+
         grid.appendChild(card);
     });
 }
 
-// Filter items
+// Filter items (always filters from the master itemsList)
 function filterItems(query) {
     if (!itemsList || itemsList.length === 0) return;
-    
-    const filtered = itemsList.filter(item => 
+
+    const filtered = itemsList.filter(item =>
         item.label.toLowerCase().includes(query.toLowerCase()) ||
         item.name.toLowerCase().includes(query.toLowerCase())
     );
-    updateItemsList(filtered);
+    renderItemsGrid(filtered);
 }
 
 // Initialize categories

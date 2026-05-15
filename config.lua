@@ -9,7 +9,7 @@ Config.ServerName = ''
 
 -- UI Theme Color
 -- Options: 'purple', 'blue', 'green', 'red', 'orange', 'yellow'
-Config.UITheme = 'blue'
+Config.UITheme = 'purple'
 
 -- Theme Color Definitions (HEX colors)
 Config.ThemeColors = {

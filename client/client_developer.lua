@@ -3,8 +3,10 @@ local QBCore = exports['qb-core']:GetCoreObject()
 -- Developer tool states
 local noclipEnabled = false
 local noclipSpeed = 1.0
+local savedNoclipPos = nil
 local airwalkEnabled = false
 local airwalkSpeed = 0.5
+local savedAirwalkPos = nil
 local godmodeEnabled = false
 local invisibleEnabled = false
 local coordsEnabled = false
@@ -61,6 +63,9 @@ end)
 function StartNoclip()
     CreateThread(function()
         local ped = PlayerPedId()
+        
+        -- Save current position before noclipping
+        savedNoclipPos = GetEntityCoords(ped)
         
         -- Make entity invisible and freeze
         SetEntityVisible(ped, false, false)
@@ -149,46 +154,7 @@ function StopNoclip()
     -- Reset speed
     noclipSpeed = 1.0
     
-    -- Keep frozen temporarily while we find ground
-    FreezeEntityPosition(ped, true)
-    
-    -- Get current position
-    local coords = GetEntityCoords(ped)
-    
-    -- Find ground below player
-    local groundFound = false
-    local groundZ = coords.z
-    
-    -- Try method 1: GetGroundZFor_3dCoord
-    for i = 1, 10 do
-        local found, safeZ = GetGroundZFor_3dCoord(coords.x, coords.y, coords.z + (i * 50.0), 0)
-        if found then
-            groundZ = safeZ
-            groundFound = true
-            break
-        end
-        Wait(10)
-    end
-    
-    -- Try method 2: Raycast if first method failed
-    if not groundFound then
-        local rayHandle = StartShapeTestRay(coords.x, coords.y, coords.z + 1000.0, coords.x, coords.y, coords.z - 1000.0, -1, ped, 0)
-        local _, hit, endCoords = GetShapeTestResult(rayHandle)
-        if hit then
-            groundZ = endCoords.z
-            groundFound = true
-        end
-    end
-    
-    -- Place player on ground
-    if groundFound then
-        SetEntityCoordsNoOffset(ped, coords.x, coords.y, groundZ + 1.0, false, false, false)
-    else
-        -- Fallback: just use current Z if we can't find ground
-        SetEntityCoordsNoOffset(ped, coords.x, coords.y, coords.z, false, false, false)
-    end
-    
-    -- Reset velocity
+    -- Reset velocity (stay at current position)
     SetEntityVelocity(ped, 0.0, 0.0, 0.0)
     
     Wait(100)
@@ -221,6 +187,9 @@ end)
 function StartAirwalk()
     CreateThread(function()
         local ped = PlayerPedId()
+        
+        -- Save current position before airwalking
+        savedAirwalkPos = GetEntityCoords(ped)
         
         -- Setup airwalk mode
         SetPedCanRagdoll(ped, false)
@@ -313,38 +282,7 @@ function StopAirwalk()
     -- Reset speed
     airwalkSpeed = 0.5
     
-    -- Gently place player on ground (same as noclip)
-    FreezeEntityPosition(ped, true)
-    
-    local coords = GetEntityCoords(ped)
-    local groundFound = false
-    local groundZ = coords.z
-    
-    for i = 1, 10 do
-        local found, safeZ = GetGroundZFor_3dCoord(coords.x, coords.y, coords.z + (i * 50.0), 0)
-        if found then
-            groundZ = safeZ
-            groundFound = true
-            break
-        end
-        Wait(10)
-    end
-    
-    if not groundFound then
-        local rayHandle = StartShapeTestRay(coords.x, coords.y, coords.z + 1000.0, coords.x, coords.y, coords.z - 1000.0, -1, ped, 0)
-        local _, hit, endCoords = GetShapeTestResult(rayHandle)
-        if hit then
-            groundZ = endCoords.z
-            groundFound = true
-        end
-    end
-    
-    if groundFound then
-        SetEntityCoordsNoOffset(ped, coords.x, coords.y, groundZ + 1.0, false, false, false)
-    else
-        SetEntityCoordsNoOffset(ped, coords.x, coords.y, coords.z, false, false, false)
-    end
-    
+    -- Reset velocity (stay at current position)
     SetEntityVelocity(ped, 0.0, 0.0, 0.0)
     
     Wait(100)
