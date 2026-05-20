@@ -1,7 +1,7 @@
 fx_version 'cerulean'
 game 'gta5'
 
-author 'un-admin'
+author 'Niko'
 description 'un-admin - Universal Admin Menu'
 version '2.0.0'
 
